@@ -1,0 +1,151 @@
+---
+title: "Webscraping"
+author: ""
+date: '2022-09-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tasks
+
+In this excercise, we will extract information from the two websites:
+
+- https://en.wikipedia.org/wiki/International_court
+- https://petition.parliament.uk/
+
+
+# Load packages
+
+```{r}
+library(tidyverse)
+library(rvest)
+```
+
+
+# International court 
+
+- Scenario 1: Scrape tables
+
+## Extract the first tables using `rvest`
+
+```{r}
+url <- "https://en.wikipedia.org/wiki/International_court"
+ht <- read_html(url)
+list_tables <- ht %>% html_table()
+
+```
+
+## Text modifying
+
+- Extract the starting year of each court using regex
+
+```{r}
+
+```
+
+
+## Save the data
+
+
+```{r}
+#write_csv("")
+```
+
+# List of Petitions
+
+
+```{r}
+url <- "https://petition.parliament.uk/petitions?state=open"
+ht <- read_html(url)
+```
+
+## Extract petition titles
+
+- Scenario 2
+
+```{r}
+petition_title <- ht %>% html_elements(".petition-open h2") %>% html_text()
+```
+
+## Extract number of signatures
+
+
+```{r}
+
+```
+
+## Extract petition id
+
+
+```{r}
+
+```
+
+## Combine three fields to a tibble
+
+
+```{r}
+
+```
+
+
+## Save the data
+
+
+```{r}
+#write_csv(df_petition, "df_petition.csv")
+```
+
+# Find how many pages in total
+
+
+```{r}
+
+```
+
+## Playing with the search/selection box
+
+- How many open petitions regarding Uklaine?
+
+
+```{r}
+
+```
+
+# Create a function to extract later pages
+
+The function:
+- takes page number as an argument
+
+You can download the current notebook as a python script and then copy and paste relavent part.
+
+
+
+
+```{r}
+
+```
+
+### Using the function get first pages 2 to 10
+
+- After downloading, combine DataFrames with `pd.concat()`
+
+
+```{r}
+
+```
+
+## Save as csv
+
+
+```{r}
+#write_csv(df_allpetition, "df_allpetition.csv")
+```
+
+
+```{r}
+
+```

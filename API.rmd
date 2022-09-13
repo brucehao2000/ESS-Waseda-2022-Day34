@@ -1,0 +1,102 @@
+---
+title: "API"
+author: ""
+date: '2022-09-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Working with Petitions API
+
+- The petition information is also available through API
+- To access, you construct a URL for JSON, then
+  1. Get JSON
+  2. Parse JSON
+  3. Convert it to a DataFrame
+
+
+
+
+```{r}
+library(tidyverse)
+library(jsonlite)
+
+```
+
+# Inflation petitions
+
+- To limit a size of JSON, let's check "inflation" related petitions
+
+
+```{r}
+url <- 'https://petition.parliament.uk/petitions.json?page=1&q=inflation&state=open'
+
+```
+
+
+# Let's try `read_json()` 
+
+```{r}
+js <- read_json(url)
+```
+
+
+
+## Get some variables and generate a DF
+
+- fields: action, additional_details, background
+- use `purrr::pluck()`
+
+
+```{r}
+
+```
+
+## `unnest`
+
+- The previous example is too complicated
+- `unnest()` will help you a lot
+
+```{r}
+
+```
+
+- This method works with similarly structured XML
+
+
+```{r eval=F}
+library(xml2)
+xml <- read_xml(url) %>% 
+  as_list()
+# Then do unnesting
+```
+
+
+
+# Let's try fromJSON
+
+- use `jsonlite::fromJSON()`, see what happens
+- this is actually so easy
+
+```{r}
+
+```
+
+
+# More detailed info for each petition
+
+- Using the petition ids from the previous example, get the number of signatures in each electoral constituency
+- API access point is: `https://petition.parliament.uk/petitions/***.json` where `***` is petition id.
+
+```{r}
+url_template <- 'https://petition.parliament.uk/petitions/%s.json'
+url <- sprintf(url_template, '614869')
+```
+
+
+```{r}
+
+```
