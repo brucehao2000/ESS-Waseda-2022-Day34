@@ -52,6 +52,14 @@ js <- read_json(url)
 
 
 ```{r}
+num_petitions <- length(js$data)
+id <- map(1:num_petitions, ~ js$data[[.x]]$id) %>% unlist()
+# or
+# id <- map(1:num_petitions, ~ pluck(js, 'data', .x, 'id')) %>% unlist()
+
+js$data #???
+id <- map(1:num_petitions, ~ pluck(js, 'data', .x, 'attributes', 'signature_count')) %>% unlist()
+
 
 ```
 
@@ -61,7 +69,10 @@ js <- read_json(url)
 - `unnest()` will help you a lot
 
 ```{r}
-
+df_pet <- js$data %>% tibble %>% 
+  unnest_wider(".") %>% 
+  unnest_wider("links") %>% 
+  unnest_wider("attributes")
 ```
 
 - This method works with similarly structured XML

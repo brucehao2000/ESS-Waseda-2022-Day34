@@ -22,6 +22,7 @@ In this excercise, we will extract information from the two websites:
 ```{r}
 library(tidyverse)
 library(rvest)
+library(stringi)
 ```
 
 
@@ -103,7 +104,11 @@ petition_title <- ht %>% html_elements(".petition-open h2") %>% html_text()
 
 
 ```{r}
-
+page_count <- ht %>% 
+  html_element(".page_count") %>% 
+  html_text() %>% 
+  stri_extract_last_regex("\\d+") %>% 
+  as.integer()
 ```
 
 ## Playing with the search/selection box
